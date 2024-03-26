@@ -17,6 +17,6 @@ var usersDB = []User{
 		// Este usuario puede ser utilizado para realizar pruebas de inicio de sesión sin necesidad de registrar un nuevo usuario cada vez.
 		Username: "admin",
 		Email:    "demo@demo.com",
-		Password: "D3mo123456987_", // Ten en cuenta que almacenar contraseñas en texto plano como esta es una mala práctica de seguridad.
+		Password: "D3mo123456987_",
 	},
 }
