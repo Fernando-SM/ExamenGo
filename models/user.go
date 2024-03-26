@@ -1,4 +1,4 @@
-package main
+package models
 
 // User representa el modelo de un usuario en el sistema.
 type User struct {
@@ -8,10 +8,10 @@ type User struct {
 	Password string `json:"password"` // Contraseña del usuario, utilizada para autenticar al usuario durante el inicio de sesión.
 }
 
-// usersDB simula una base de datos de usuarios registrados en el sistema.
+// UsersDB simula una base de datos de usuarios registrados en el sistema.
 // En un entorno de producción, preferirías utilizar una base de datos real para almacenar esta información,
 // pero para propósitos de demostración o desarrollo, una "base de datos" en memoria como esta puede ser útil.
-var usersDB = []User{
+var UsersDB = []User{
 	{
 		// Un usuario predefinido para demostración o pruebas.
 		// Este usuario puede ser utilizado para realizar pruebas de inicio de sesión sin necesidad de registrar un nuevo usuario cada vez.

@@ -1,13 +1,15 @@
-package main
+package aplication
 
 import (
+	"ExamenGo/auth"
+	"ExamenGo/models"
 	"encoding/json"
 	"net/http"
 )
 
 // UserRegisterHandler maneja la solicitud de registro de usuarios.
 func UserRegisterHandler(w http.ResponseWriter, r *http.Request) {
-	var user User
+	var user models.User
 
 	// Decodifica el cuerpo de la solicitud JSON en la estructura User.
 	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
@@ -22,11 +24,11 @@ func UserRegisterHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Agrega el usuario a la "base de datos" simulada (usersDB).
-	usersDB = append(usersDB, user)
+	// Agrega el usuario a la "base de datos" simulada (UsersDB).
+	models.UsersDB = append(models.UsersDB, user)
 
 	// Genera un token JWT para el usuario recién registrado.
-	token, err := GenerateJWT(user)
+	token, err := auth.GenerateJWT(user)
 	if err != nil {
 		http.Error(w, "Failed to generate token", http.StatusInternalServerError)
 		return
@@ -62,10 +64,10 @@ func UserLoginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Busca el correo electrónico en la "base de datos" para validar el usuario.
-	for _, u := range usersDB {
+	for _, u := range models.UsersDB {
 		if u.Email == creds.Email {
 			// Genera un token JWT para el usuario si el correo electrónico existe.
-			token, err := GenerateJWT(u)
+			token, err := auth.GenerateJWT(u)
 			if err != nil {
 				http.Error(w, "Failed to generate token", http.StatusInternalServerError)
 				return
@@ -76,6 +78,6 @@ func UserLoginHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	// Si el correo electrónico no se encuentra en usersDB, devuelve un error.
+	// Si el correo electrónico no se encuentra en UsersDB, devuelve un error.
 	http.Error(w, "Email not found", http.StatusUnauthorized)
 }

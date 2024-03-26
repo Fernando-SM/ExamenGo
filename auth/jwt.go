@@ -1,6 +1,7 @@
-package main
+package auth
 
 import (
+	"ExamenGo/models"
 	"github.com/golang-jwt/jwt" // Importa el paquete jwt para trabajar con JSON Web Tokens.
 	"time"
 )
@@ -14,7 +15,7 @@ type Claims struct {
 }
 
 // GenerateJWT genera un nuevo token JWT para un usuario dado.
-func GenerateJWT(user User) (string, error) {
+func GenerateJWT(user models.User) (string, error) {
 	// Define el tiempo de expiración del token a una hora desde el momento actual.
 	expirationTime := time.Now().Add(1 * time.Hour)
 
